@@ -105,6 +105,8 @@ Encoding is the final step. Each discrete quantization level is assigned a uniqu
 * **MSB (Most Significant Bit):** The first bit, which represents the largest voltage step (in a SAR ADC, this is $V_{FSR} / 2$).
 * **LSB (Least Significant Bit):** The last bit, which represents the smallest voltage step (the resolution).
 
+  > simple [matlab code](https://github.com/ShravanaHS/sar-adc-cadence-virtuoso/edit/main/codes) to simulate these 4 steps
+
 ## 3. Sample and Hold (S/H) Circuit
 
 ### 3.1 Why is an S/H Circuit Needed?
