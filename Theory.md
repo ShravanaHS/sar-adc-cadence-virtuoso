@@ -55,11 +55,10 @@ graph LR;
     * **Advantages:** High noise immunity, perfect storage and replication, and easy to process with computers.
     * **Disadvantages:** The conversion from analog introduces **quantization error**, meaning some information is always lost.
 
-
 <p align="center">
-  <img src="https://www.researchgate.net/publication/324804130/figure/fig1/AS:620040592293889@1524840605847/analogdigitalwave.png" alt="Analog vs. Digital signal waveform">
+  <img src="https://github.com/ShravanaHS/sar-adc-cadence-virtuoso/blob/main/images/combined.png" alt="Analog vs. Digital signal waveform">
+    Analog signal and corresponding discrete signal
 </p>
-
 
 
 ### 2.2 Sampling
@@ -72,6 +71,11 @@ Sampling is the first step in A/D conversion. It's the process of converting a c
     
 * **Anti-Aliasing Filter:** To prevent aliasing, we always use a **Low-Pass Filter (LPF)** before the ADC. This filter cuts off any frequencies *above* $F_{max}$ (usually $F_s / 2$) to ensure the Nyquist criterion is met.
 
+
+<p align="center">
+  <img src="https://github.com/ShravanaHS/sar-adc-cadence-virtuoso/blob/main/images/pulses.png" alt="Analog vs. Digital signal waveform">
+     <br> sampled analog signal
+</p>
 
 ### 2.3 Quantization
 
@@ -87,8 +91,10 @@ Quantization is the second step. It's the process of mapping the *infinite* poss
     * The maximum error is always $\pm 0.5 \text{ LSB}$. This is an unavoidable part of A/D conversion.
 
     
+
 <p align="center">
-  <img src="https://files.codingninjas.in/article_images/image-sampling-and-quantization-6-1646637756.jpg" alt="Analog vs. Digital signal waveform">
+  <img src="https://github.com/ShravanaHS/sar-adc-cadence-virtuoso/blob/main/images/quantized.png" alt="Analog vs. Digital signal waveform">
+          <br> quantized analog signal
 </p>
 
 
@@ -105,7 +111,37 @@ Encoding is the final step. Each discrete quantization level is assigned a uniqu
 * **MSB (Most Significant Bit):** The first bit, which represents the largest voltage step (in a SAR ADC, this is $V_{FSR} / 2$).
 * **LSB (Least Significant Bit):** The last bit, which represents the smallest voltage step (the resolution).
 
-  > simple [matlab code](https://github.com/ShravanaHS/sar-adc-cadence-virtuoso/edit/main/codes) to simulate these 4 steps
+
+  
+ ```
+       Encoded Signal Output (ADC Data) 
+Time(s) | Sampled V | Quantized V | Encoded 3-Bit Code
+------------------------------------------------------
+  0.00  |   4.000   |    4.00     |       100
+  0.05  |   5.082   |    5.00     |       101
+  0.10  |   6.057   |    6.00     |       110
+  0.15  |   6.832   |    7.00     |       111
+  0.20  |   7.329   |    7.00     |       111
+  0.25  |   7.500   |    8.00     |       111
+  0.30  |   7.329   |    7.00     |       111
+  0.35  |   6.832   |    7.00     |       111
+  0.40  |   6.057   |    6.00     |       110
+  0.45  |   5.082   |    5.00     |       101
+  0.50  |   4.000   |    4.00     |       100
+  0.55  |   2.918   |    3.00     |       011
+  0.60  |   1.943   |    2.00     |       010
+  0.65  |   1.168   |    1.00     |       001
+  0.70  |   0.671   |    1.00     |       001
+  0.75  |   0.500   |    1.00     |       001
+  0.80  |   0.671   |    1.00     |       001
+  0.85  |   1.168   |    1.00     |       001
+  0.90  |   1.943   |    2.00     |       010
+  0.95  |   2.918   |    3.00     |       011
+  ```
+
+
+  > simple [matlab code](https://github.com/ShravanaHS/sar-adc-cadence-virtuoso/edit/main/codes/samplingqunatization2) to simulate these 4 steps
+
 
 ## 3. Sample and Hold (S/H) Circuit
 
